@@ -9,6 +9,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependesis
+        uses: actions/cache@v3
+        with:
+          path: ~/.node
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json')}}
       - name: Install dependencies
         run: npm ci
       - name: Lint code
@@ -21,6 +26,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependesis
+        uses: actions/cache@v3
+        with:
+          path: ~/.node
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json')}}
       - name: Install dependencies
         run: npm ci
       - name: Build website
@@ -29,10 +39,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-file
-          # path: dist
-          path: |
-            dest
-            package.json
+          path: dist
+          # path: |
+          #   dest
+          #   package.json
 
         
   deploy:
